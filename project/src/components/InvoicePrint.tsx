@@ -250,7 +250,8 @@ export default function InvoicePrint() {
 async function downloadPdf(id: string | undefined) {
   if (!id) return alert('Missing invoice id')
   try {
-    const res = await fetch(`${import.meta.env.VITE_PDF_SERVER_URL || 'http://localhost:4000'}/api/invoices/${id}/pdf`)
+    // Use the serverless function directly from the same domain
+    const res = await fetch(`/api/invoices/${id}/pdf`)
     if (!res.ok) throw new Error('Failed to fetch PDF')
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)
