@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-primary: #0F172A; /* deep navy */
+	--color-accent: #DC2626; /* red */
+	--color-white: #FFFFFF;
+}
+
+/* Utility classes to opt-in to the brand palette */
+.brand-bg { background-color: var(--color-primary) !important; }
+.brand-accent { color: var(--color-accent) !important; }
+.brand-text { color: var(--color-primary) !important; }
+.brand-white { color: var(--color-white) !important; }
+
+/* Ensure the existing invoice print template keeps its styles by avoiding global overrides */
+.print\:keep-template * { all: initial; }
