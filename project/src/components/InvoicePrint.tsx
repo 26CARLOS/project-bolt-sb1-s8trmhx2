@@ -252,7 +252,21 @@ async function downloadPdf(id: string | undefined) {
   try {
     // Use the serverless function directly from the same domain
     const res = await fetch(`/api/invoices/${id}/pdf`)
-    if (!res.ok) throw new Error('Failed to fetch PDF')
+    
+    if (!res.ok) {
+      // Get error details from response when possible
+      let errorDetails = '';
+      try {
+        const errorText = await res.text();
+        errorDetails = errorText || `Status ${res.status}`;
+      } catch (e) {
+        errorDetails = `Status ${res.status}`;
+      }
+      
+      console.error(`PDF API error: ${errorDetails}`);
+      throw new Error(`Failed to fetch PDF: ${errorDetails}`);
+    }
+    
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -264,6 +278,6 @@ async function downloadPdf(id: string | undefined) {
     URL.revokeObjectURL(url)
   } catch (err) {
     console.error('Failed to download PDF', err)
-    alert('Failed to download PDF')
+    alert(`Failed to download PDF: ${err instanceof Error ? err.message : 'Unknown error'}`)
   }
 }
