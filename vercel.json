@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "project/api/**/*.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "project/api/**/*.js": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  },
+  "framework": "vite",
+  "installCommand": "cd project && npm install",
+  "buildCommand": "cd project && npm run build",
+  "outputDirectory": "project/dist",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/project/api/$1" }
+  ]
+}
