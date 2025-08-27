@@ -1,5 +1,6 @@
-import type { IncomingForm } from 'formidable'
+// Use ES module imports
 import formidable from 'formidable'
+import type { IncomingForm } from 'formidable'
 import { createClient } from '@supabase/supabase-js'
 
 export const config = {

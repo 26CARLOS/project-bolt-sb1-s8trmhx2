@@ -1,5 +1,7 @@
+// Use ES module imports
 import chromium from '@sparticuz/chromium'
-import puppeteer, { Browser } from 'puppeteer-core'
+import puppeteer from 'puppeteer-core'
+import type { Browser } from 'puppeteer-core'
 
 export default async function handler(req: any, res: any) {
   try {
