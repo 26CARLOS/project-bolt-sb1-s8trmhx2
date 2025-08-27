@@ -1,5 +1,5 @@
 import chromium from '@sparticuz/chromium'
-import puppeteer from 'puppeteer-core'
+import puppeteer, { Browser } from 'puppeteer-core'
 
 export default async function handler(req: any, res: any) {
   const { id } = req.query
@@ -10,7 +10,7 @@ export default async function handler(req: any, res: any) {
   const APP_URL = process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:5173')
   const invoiceUrl = `${APP_URL}/invoices/${id}/print?pdf=1`
 
-  let browser: puppeteer.Browser | null = null
+  let browser: Browser | null = null
   try {
     const isRunningOnVercel = !!process.env.VERCEL
     const executablePath = isRunningOnVercel ? await chromium.executablePath() : undefined
