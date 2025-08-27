@@ -250,34 +250,67 @@ export default function InvoicePrint() {
 async function downloadPdf(id: string | undefined) {
   if (!id) return alert('Missing invoice id')
   try {
-    // Use the serverless function directly from the same domain
-    const res = await fetch(`/api/invoices/${id}/pdf`)
-    
-    if (!res.ok) {
-      // Get error details from response when possible
-      let errorDetails = '';
-      try {
-        const errorText = await res.text();
-        errorDetails = errorText || `Status ${res.status}`;
-      } catch (e) {
-        errorDetails = `Status ${res.status}`;
+    // Try the primary PDF endpoint with the full puppeteer renderer
+    try {
+      console.log('Trying main PDF endpoint...');
+      const res = await fetch(`/api/invoices/${id}/pdf`);
+      
+      if (res.ok) {
+        const blob = await res.blob();
+        // Verify we got a PDF
+        if (blob.type === 'application/pdf') {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `invoice-${id}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          return;
+        }
       }
       
-      console.error(`PDF API error: ${errorDetails}`);
-      throw new Error(`Failed to fetch PDF: ${errorDetails}`);
+      // If we got here, the response wasn't a valid PDF
+      console.warn(`PDF endpoint returned non-PDF response: ${res.status} ${res.statusText}`);
+      throw new Error('Invalid PDF response');
+      
+    } catch (mainApiError) {
+      console.error('Main PDF endpoint failed:', mainApiError);
+      
+      // Try fallback simple endpoint
+      console.log('Trying alternative endpoint...');
+      const fallbackRes = await fetch(`/api/pdf-text?id=${id}`);
+      
+      if (fallbackRes.ok) {
+        const text = await fallbackRes.text();
+        // Create simple text file as fallback
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `invoice-${id}-text.txt`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        
+        // Inform user this is just a text version
+        alert('PDF generation is currently unavailable. A text version has been downloaded instead.');
+        return;
+      }
+      
+      // Both endpoints failed
+      throw new Error('All PDF endpoints failed');
     }
     
-    const blob = await res.blob()
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `invoice-${id}.pdf`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    URL.revokeObjectURL(url)
   } catch (err) {
-    console.error('Failed to download PDF', err)
-    alert(`Failed to download PDF: ${err instanceof Error ? err.message : 'Unknown error'}`)
+    console.error('Failed to download PDF', err);
+    alert('PDF generation failed. Please try again later or use the print function in your browser.');
+    
+    // As a last resort, open the print dialog
+    if (confirm('Would you like to print the invoice directly from your browser instead?')) {
+      window.print();
+    }
   }
 }
