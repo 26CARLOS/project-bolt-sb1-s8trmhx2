@@ -95,7 +95,7 @@ export default function Layout() {
         <div className="flex flex-col flex-grow pt-5 bg-primary overflow-y-auto border-r border-accent/10">
           <div className="flex items-center flex-shrink-0 px-4">
             <FileText className="h-8 w-8 text-accent" />
-            <span className="ml-2 text-xl font-semibold text-brandwhite">AutoCare</span>
+            <span className="ml-2 text-xl font-semibold text-brandwhite">MG AutoCare</span>
           </div>
           <nav className="mt-5 flex-grow px-2 pb-4 space-y-1">
             {navigation.map((item) => {
