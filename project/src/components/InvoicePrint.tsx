@@ -10,6 +10,7 @@ import { COMPANY_LOGO_URL } from "../config/company";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
+import logo from "../../logo.png"
 
 export default function InvoicePrint() {
   const { id } = useParams();
@@ -158,7 +159,7 @@ export default function InvoicePrint() {
             <div className="col-span-3 flex items-start">
               {COMPANY_LOGO_URL ? (
                 <img
-                  src={COMPANY_LOGO_URL}
+                  src={logo}
                   alt="Logo"
                   className="h-16 w-auto object-contain"
                   onError={(e) => {
