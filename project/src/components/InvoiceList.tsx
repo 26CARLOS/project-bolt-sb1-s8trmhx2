@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import { Plus, Search, Eye, Edit, Trash2, Download } from 'lucide-react'
 import { useInvoices } from '../hooks/useInvoices'
 import { formatCurrency, formatDate } from '../utils/formatters'
+import { useNavigate } from 'react-router-dom'
 
 export default function InvoiceList() {
   const { invoices, loading, deleteInvoice } = useInvoices()
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+
+  const navigate = useNavigate();
 
   const filteredInvoices = invoices.filter(invoice => {
     const matchesSearch = invoice.invoice_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -108,7 +111,8 @@ export default function InvoiceList() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 text-gray-900">
               {filteredInvoices.map((invoice) => (
-                <tr key={invoice.id} className="hover:bg-gray-50">
+
+                <tr key={invoice.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => {navigate(`/invoices/${invoice.id}`)}}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link 
                       to={`/invoices/${invoice.id}`}
