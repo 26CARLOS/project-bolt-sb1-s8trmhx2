@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'auto',
       includeAssets: ['icon-192x192.svg', 'icon-512x512.svg'],
       manifest: {
         name: 'MG AutoCare Invoice System',
