@@ -8,6 +8,8 @@ import {
   Menu,
   X
 } from 'lucide-react'
+import InstallPWA from './InstallPWA'
+import OnlineStatusIndicator from './OnlineStatusIndicator'
 
 export default function Layout() {
   const location = useLocation()
@@ -50,7 +52,7 @@ export default function Layout() {
           className={`fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity ${sidebarOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setSidebarOpen(false)}
         />
-  <div className={`relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white text-gray-900 transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+  <div className={`relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="absolute top-0 right-0 -mr-12 pt-2">
             <button
               type="button"
@@ -62,9 +64,9 @@ export default function Layout() {
           </div>
           <div className="flex-shrink-0 flex items-center px-4">
             <FileText className="h-8 w-8 text-accent" />
-            <span className="ml-2 text-xl font-semibold text-brandwhite">AutoCare</span>
+            <span className="ml-2 text-xl font-semibold text-brandwhite">MG AutoCare</span>
           </div>
-          <nav className="mt-5 flex-shrink-0 h-full divide-y divide-gray-200 overflow-y-auto">
+          <nav className="mt-5 flex-shrink-0 h-full overflow-y-auto">
             <div className="px-2 space-y-1">
               {navigation.map((item) => {
                 const Icon = item.icon
@@ -132,7 +134,7 @@ export default function Layout() {
             <Menu className="h-6 w-6" />
           </button>
           <div className="flex-1 px-4 flex justify-between items-center">
-            <h1 className="text-lg font-medium text-gray-900">Dashboard</h1>
+            <h1 className="text-lg font-medium text-gray-900">MG AUTO CARE INVOICE SYSTEM</h1>
           </div>
         </div>
 
@@ -145,6 +147,12 @@ export default function Layout() {
           </div>
         </main>
       </div>
+      
+      {/* PWA Install Banner */}
+      <InstallPWA />
+      
+      {/* Online Status Indicator */}
+      <OnlineStatusIndicator />
     </div>
   )
 }

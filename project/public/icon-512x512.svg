@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#0F172A"/>
+  <path d="M256 100 L256 412 M100 256 L412 256" stroke="#DC2626" stroke-width="16" stroke-linecap="round"/>
+  <rect x="156" y="156" width="200" height="200" fill="none" stroke="#DC2626" stroke-width="12" rx="8"/>
+  <text x="256" y="460" font-family="Arial, sans-serif" font-size="32" fill="#FFFFFF" text-anchor="middle" font-weight="bold">MG AutoCare</text>
+</svg>

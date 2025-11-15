@@ -1,0 +1,6 @@
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" fill="#0F172A"/>
+  <path d="M96 40 L96 152 M40 96 L152 96" stroke="#DC2626" stroke-width="8" stroke-linecap="round"/>
+  <rect x="60" y="60" width="72" height="72" fill="none" stroke="#DC2626" stroke-width="4" rx="4"/>
+  <text x="96" y="170" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">MG AutoCare</text>
+</svg>

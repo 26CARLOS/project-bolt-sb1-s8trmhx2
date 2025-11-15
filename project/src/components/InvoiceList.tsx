@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Plus, Search, Eye, Edit, Trash2, Download } from 'lucide-react'
 import { useInvoices } from '../hooks/useInvoices'
@@ -39,11 +39,11 @@ export default function InvoiceList() {
 
   return (
     <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="text-2xl font-bold text-brandwhite">Invoices</h1>
         <Link
           to="/invoices/new"
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-brandwhite bg-accent hover:bg-accent/90"
+          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-brandwhite bg-accent hover:bg-accent/90"
         >
           <Plus className="h-4 w-4 mr-2" />
           New Invoice

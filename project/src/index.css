@@ -16,3 +16,39 @@
 
 /* Ensure the existing invoice print template keeps its styles by avoiding global overrides */
 .print\:keep-template * { all: initial; }
+
+/* Mobile-friendly improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  /* Ensure tables are scrollable */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Improve form inputs on mobile */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+}
+
+/* Print styles */
+@media print {
+  @page {
+    margin: 0;
+    size: A4;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}

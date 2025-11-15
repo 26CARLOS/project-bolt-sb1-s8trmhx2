@@ -201,20 +201,20 @@ export default function InvoiceForm() {
       <div className="flex items-center space-x-4">
         <button
           onClick={() => navigate('/invoices')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
+          className="inline-flex items-center text-sm text-brandwhite hover:text-brandwhite/80"
         >
           <ArrowLeft className="h-4 w-4 mr-1" />
           Back to Invoices
         </button>
       </div>
 
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h1 className="text-2xl font-bold text-brandwhite">
           {isEdit ? 'Edit Invoice' : 'Create New Invoice'}
         </h1>
       </div>
 
-  <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6 space-y-6 text-gray-900">
+  <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-4 sm:p-6 space-y-6 text-gray-900">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">Client *</label>
@@ -346,62 +346,66 @@ export default function InvoiceForm() {
 
           <div className="space-y-4">
             {formData.items.map((item, index) => (
-              <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 border border-gray-200 rounded-lg">
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <input
-                    type="text"
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={item.description}
-                    onChange={(e) => updateItem(index, 'description', e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Quantity</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={item.quantity}
-                    onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Unit Price</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={item.unit_price}
-                    onChange={(e) => updateItem(index, 'unit_price', parseFloat(e.target.value) || 0)}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">VAT Rate (%)</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    max="100"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={item.vat_rate}
-                    onChange={(e) => updateItem(index, 'vat_rate', parseFloat(e.target.value) || 0)}
-                  />
-                </div>
-                <div className="flex items-end">
+              <div key={index} className="p-4 border border-gray-200 rounded-lg space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">Item {index + 1}</span>
                   <button
                     type="button"
                     onClick={() => removeItem(index)}
                     disabled={formData.items.length === 1}
-                    className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="text-red-600 hover:text-red-900 disabled:text-gray-400 disabled:cursor-not-allowed"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <input
+                      type="text"
+                      required
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={item.description}
+                      onChange={(e) => updateItem(index, 'description', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Quantity</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      required
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={item.quantity}
+                      onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Unit Price</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      required
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={item.unit_price}
+                      onChange={(e) => updateItem(index, 'unit_price', parseFloat(e.target.value) || 0)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">VAT Rate (%)</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      max="100"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={item.vat_rate}
+                      onChange={(e) => updateItem(index, 'vat_rate', parseFloat(e.target.value) || 0)}
+                    />
+                  </div>
                 </div>
               </div>
             ))}

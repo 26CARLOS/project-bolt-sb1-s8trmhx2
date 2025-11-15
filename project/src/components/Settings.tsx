@@ -139,13 +139,13 @@ export default function Settings() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="text-2xl font-bold text-brandwhite">Business Settings</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Business Information */}
-  <div className="bg-white shadow rounded-lg p-6 text-gray-900">
+  <div className="bg-white shadow rounded-lg p-4 sm:p-6 text-gray-900">
           <h3 className="text-lg font-medium text-gray-900 mb-6">Business Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

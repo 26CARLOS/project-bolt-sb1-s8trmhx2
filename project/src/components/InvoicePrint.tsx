@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Pen, Printer } from "lucide-react";
 import { format } from "date-fns";
@@ -246,7 +246,7 @@ export default function InvoicePrint() {
                     Quantity
                   </th>
                   <th className="border border-black px-2 py-1 text-right w-[16%]">
-                    Unit Price with mark
+                    Unit Price
                   </th>
                   <th className="border border-black px-2 py-1 text-right w-[12%]">
                     Total
