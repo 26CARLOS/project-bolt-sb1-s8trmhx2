@@ -69,21 +69,27 @@ export function registerServiceWorker() {
         .then((registration) => {
           console.log('Service Worker registered successfully:', registration.scope)
 
-          // Check for updates periodically
+          // Check for updates periodically (every 5 minutes instead of 1 minute)
           setInterval(() => {
             registration.update()
-          }, 60000) // Check every minute
+          }, 5 * 60 * 1000)
 
           // Handle updates
           registration.addEventListener('updatefound', () => {
             const newWorker = registration.installing
             if (newWorker) {
               newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  // New service worker available, prompt user to refresh
-                  if (confirm('A new version is available! Reload to update?')) {
-                    newWorker.postMessage({ type: 'SKIP_WAITING' })
-                    window.location.reload()
+                // Only prompt if there's already a controller (not first install)
+                if (newWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    console.log('New service worker available')
+                    // New service worker available, prompt user to refresh
+                    if (confirm('A new version is available! Reload to update?')) {
+                      newWorker.postMessage({ type: 'SKIP_WAITING' })
+                      window.location.reload()
+                    }
+                  } else {
+                    console.log('Service worker installed for the first time')
                   }
                 }
               })
@@ -94,9 +100,13 @@ export function registerServiceWorker() {
           console.error('Service Worker registration failed:', error)
         })
 
-      // Handle controller change
+      // Handle controller change - prevent multiple reloads
+      let refreshing = false
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload()
+        if (!refreshing) {
+          refreshing = true
+          window.location.reload()
+        }
       })
     })
   }
