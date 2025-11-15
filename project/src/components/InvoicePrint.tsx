@@ -161,7 +161,7 @@ export default function InvoicePrint() {
                 <img
                   src={logo}
                   alt="Logo"
-                  className="h-16 w-auto object-contain"
+                  className="h-24 w-auto object-contain"
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
                     img.style.display = "none";
@@ -199,6 +199,30 @@ export default function InvoicePrint() {
             </div>
             <div className="col-span-5">
               <div className="grid grid-cols-12 gap-1">
+                <div className="col-span-5 font-bold text-red-600 text-right pr-2">
+                  VEHICLE
+                </div>
+                <div className="col-span-7">
+                  {invoice.vehicle || "-"}
+                </div>
+                <div className="col-span-5 font-bold text-red-600 text-right pr-2">
+                  REG
+                </div>
+                <div className="col-span-7">
+                  {invoice.reg || "-"}
+                </div>
+                <div className="col-span-5 font-bold text-red-600 text-right pr-2">
+                  MILEAGE
+                </div>
+                <div className="col-span-7">
+                  {invoice.mileage || "-"}
+                </div>
+                <div className="col-span-5 font-bold text-red-600 text-right pr-2">
+                  JOB CARD
+                </div>
+                <div className="col-span-7">
+                  {invoice.job_card || "-"}
+                </div>
                 <div className="col-span-5 font-bold text-red-600 text-right pr-2">
                   DATE
                 </div>
@@ -285,10 +309,7 @@ export default function InvoicePrint() {
             <div className="col-span-7">
               <div className="border border-black p-2 text-[10px] h-20 flex items-center">
                 <div className="w-full grid grid-cols-12">
-                  <div className="col-span-3 border-r border-black pr-2">
-                    Labour rate {currency}
-                    {two(businessDetails?.labour_rate_per_hour ?? 0)}/hr
-                  </div>
+                  
                   <div className="col-span-9" />
                 </div>
               </div>

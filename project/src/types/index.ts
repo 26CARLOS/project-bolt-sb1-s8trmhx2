@@ -40,6 +40,10 @@ export interface Invoice {
   tax_rate: number
   notes?: string
   terms?: string
+  vehicle?: string
+  reg?: string
+  mileage?: string
+  job_card?: string
   subtotal: number
   tax_amount: number
   total_amount: number
@@ -66,6 +70,10 @@ export interface InvoiceFormData {
   tax_rate: number
   notes?: string
   terms?: string
+  vehicle?: string
+  reg?: string
+  mileage?: string
+  job_card?: string
   items: {
     description: string
     quantity: number

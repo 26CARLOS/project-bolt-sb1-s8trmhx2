@@ -4,7 +4,7 @@ import { Plus, Trash2, ArrowLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useClients } from '../hooks/useClients'
 import { useBusinessDetails } from '../hooks/useBusinessDetails'
-import { InvoiceFormData, Invoice } from '../types'
+import { InvoiceFormData } from '../types'
 
 export default function InvoiceForm() {
   const navigate = useNavigate()
@@ -21,6 +21,10 @@ export default function InvoiceForm() {
     tax_rate: businessDetails?.default_vat_rate || 15,
     notes: '',
     terms: businessDetails?.invoice_terms || '',
+    vehicle: '',
+    reg: '',
+    mileage: '',
+    job_card: '',
     items: [{ description: '', quantity: 1, unit_price: 0, vat_rate: businessDetails?.default_vat_rate || 15 }]
   })
   
@@ -55,6 +59,10 @@ export default function InvoiceForm() {
         tax_rate: data.tax_rate,
         notes: data.notes || '',
         terms: data.terms || '',
+        vehicle: data.vehicle || '',
+        reg: data.reg || '',
+        mileage: data.mileage || '',
+        job_card: data.job_card || '',
         items: data.items?.length ? data.items.map((item: any) => ({
           description: item.description,
           quantity: item.quantity,
@@ -117,7 +125,11 @@ export default function InvoiceForm() {
             due_date: formData.due_date || null,
             tax_rate: formData.tax_rate,
             notes: formData.notes,
-            terms: formData.terms
+            terms: formData.terms,
+            vehicle: formData.vehicle,
+            reg: formData.reg,
+            mileage: formData.mileage,
+            job_card: formData.job_card
           })
           .eq('id', id)
 
@@ -145,7 +157,11 @@ export default function InvoiceForm() {
             due_date: formData.due_date || null,
             tax_rate: formData.tax_rate,
             notes: formData.notes,
-            terms: formData.terms
+            terms: formData.terms,
+            vehicle: formData.vehicle,
+            reg: formData.reg,
+            mileage: formData.mileage,
+            job_card: formData.job_card
           }])
           .select()
           .single()
@@ -261,6 +277,56 @@ export default function InvoiceForm() {
               value={formData.tax_rate}
               onChange={(e) => setFormData(prev => ({ ...prev, tax_rate: parseFloat(e.target.value) || 0 }))}
             />
+          </div>
+        </div>
+
+        {/* Vehicle Details */}
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Vehicle Details</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Vehicle</label>
+              <input
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.vehicle}
+                onChange={(e) => setFormData(prev => ({ ...prev, vehicle: e.target.value }))}
+                placeholder="e.g., Toyota Corolla"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Registration</label>
+              <input
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.reg}
+                onChange={(e) => setFormData(prev => ({ ...prev, reg: e.target.value }))}
+                placeholder="e.g., ABC123GP"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Mileage</label>
+              <input
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.mileage}
+                onChange={(e) => setFormData(prev => ({ ...prev, mileage: e.target.value }))}
+                placeholder="e.g., 45000 km"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Job Card</label>
+              <input
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.job_card}
+                onChange={(e) => setFormData(prev => ({ ...prev, job_card: e.target.value }))}
+                placeholder="e.g., JC-2025-001"
+              />
+            </div>
           </div>
         </div>
 
