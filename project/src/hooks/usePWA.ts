@@ -13,11 +13,13 @@ export function usePWA() {
   useEffect(() => {
     // Check if already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('PWA: App is already installed')
       setIsInstalled(true)
     }
 
     // Listen for install prompt
     const handleBeforeInstallPrompt = (e: Event) => {
+      console.log('PWA: beforeinstallprompt event fired')
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
       setIsInstallable(true)
@@ -25,11 +27,13 @@ export function usePWA() {
 
     // Listen for successful installation
     const handleAppInstalled = () => {
+      console.log('PWA: App installed successfully')
       setIsInstalled(true)
       setIsInstallable(false)
       setDeferredPrompt(null)
     }
 
+    console.log('PWA: Setting up event listeners')
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     window.addEventListener('appinstalled', handleAppInstalled)
 

@@ -15,6 +15,11 @@ export default function Layout() {
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
 
+  // Test log to verify Layout is rendering
+  React.useEffect(() => {
+    console.log('Layout component mounted')
+  }, [])
+
   const navigation = [
     { name: 'Dashboard', href: '/', icon: Home },
     { name: 'Invoices', href: '/invoices', icon: FileText },
@@ -149,7 +154,10 @@ export default function Layout() {
       </div>
       
       {/* PWA Install Banner */}
-      <InstallPWA />
+      {(() => {
+        console.log('About to render InstallPWA component')
+        return <InstallPWA />
+      })()}
       
       {/* Online Status Indicator */}
       <OnlineStatusIndicator />

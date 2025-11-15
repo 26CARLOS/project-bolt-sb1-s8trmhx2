@@ -125,7 +125,7 @@ export default function Dashboard() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 text-gray-900">
               {recentInvoices.map((invoice) => (
-                  <tr className="hover:bg-gray-50 cursor-pointer" onClick={() => {navigate(`/invoices/${invoice.id}`)}}>
+                  <tr key={invoice.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => {navigate(`/invoices/${invoice.id}`)}}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
                         className="text-sm font-medium text-accent hover:text-accent/90"
